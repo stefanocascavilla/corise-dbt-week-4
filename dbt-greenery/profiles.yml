@@ -1,0 +1,12 @@
+greenery:
+  target: greenery
+  outputs:
+    greenery:
+      type: postgres
+      host: localhost
+      user: corise
+      password: corise
+      port: 5432
+      database: dbt
+      schema: dbt_stefano_c
+      threads: 4

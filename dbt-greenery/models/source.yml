@@ -1,0 +1,31 @@
+version: 2
+
+sources:
+  - name: data
+    schema: public
+    database: dbt
+
+    tables:
+      - name: users
+        description: The information about the users
+        loaded_at_field: created_at
+
+      - name: addresses
+        description: The addresses information
+
+      - name: events
+        description: Events performed by users on the platform
+        loaded_at_field: created_at
+
+      - name: orders
+        description: Orders made by the users
+        loaded_at_field: created_at
+
+      - name: order_items
+        description: Relation table that associate products to the orders made
+
+      - name: products
+        description: The information about the products
+
+      - name: promos
+        description: The information about the promos (active and past)

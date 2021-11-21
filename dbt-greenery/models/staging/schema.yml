@@ -1,0 +1,141 @@
+
+   
+version: 2
+
+models:
+  - name: stg_users
+    description: Table containing information about the users (got from users source table) 
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+          - unique
+
+      - name: first_name
+        tests:
+          - not_null
+
+      - name: last_name
+        tests:
+          - not_null
+
+      - name: email
+        tests:
+          - not_null
+          - unique
+
+      - name: address_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_addresses')
+              field: address_id
+
+  - name: stg_addresses
+    description: Table containing the addresses information (got from addresses source table)
+    columns:
+      - name: address_id
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_events
+    description: Table containing the events performed by users on the platform (got from events source table)
+    columns:
+      - name: event_id
+        tests:
+          - not_null
+          - unique
+
+      - name: session_id
+        tests:
+          - not_null
+
+      - name: user_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_users')
+              field: user_id
+
+  - name: stg_orders
+    description: Table containing orders made by the users (got from orders source table)
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - unique
+
+      - name: user_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_users')
+              field: user_id
+
+      - name: promo_id
+      - name: address_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_addresses')
+              field: address_id
+
+      - name: status
+        tests:
+          - not_null
+
+  - name: stg_order_items
+    description: Relation table that associate products to the orders made (got from the order_items source table)
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
+
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_products')
+              field: product_id
+
+      - name: quantity
+        tests:
+          - not_null
+
+  - name: stg_products
+    description: Table containing the information about the products (got from the products source table)
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+
+      - name: name
+        tests:
+          - not_null
+
+      - name: price
+        tests:
+          - not_null
+
+      - name: quantity
+        tests:
+          - not_null
+
+  - name: stg_promos
+    description: Table containing the information about the promos (got from the promos source table)
+    columns:
+      - name: promo_id
+        tests:
+          - not_null
+          - unique
+
+      - name: status
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['active', 'inactive']
