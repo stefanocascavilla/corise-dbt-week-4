@@ -1,3 +1,5 @@
+-- Defined the intermediate model that stores the events along with the info of the user that made them.
+
 with user_events as (
     select
         event.event_id,

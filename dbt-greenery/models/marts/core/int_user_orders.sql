@@ -1,3 +1,5 @@
+-- Defined this intermediate model to join the users with the orders they made on the platform.
+
 with user_orders as (
     select
         u.user_id,

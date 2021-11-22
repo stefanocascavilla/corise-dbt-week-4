@@ -1,3 +1,5 @@
+-- Defined the dimension that contains the countries along with the number of users (of the platform). This could be interesting for a marketing campaing purpose.
+
 with country_inhabitants as (
     select
         address.country,

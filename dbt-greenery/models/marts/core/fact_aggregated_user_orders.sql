@@ -1,3 +1,5 @@
+-- Defined this fact model to aggregate the orders at the user level (daily) and count how many orders the user made each day.
+
 with aggregated_user_orders as (
     select
         user_id,

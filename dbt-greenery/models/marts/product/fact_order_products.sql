@@ -1,3 +1,5 @@
+-- Defined the fact table that represents each order along with the creation date, the total spent, and the total number of products associated.
+
 with order_products as (
     select
         o.order_id,

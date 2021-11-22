@@ -1,3 +1,5 @@
+-- Defined this fact model to aggregate the events at the user level (daily) and count how many events the user made each day.
+
 with aggregated_user_events as (
     select
         user_id,
