@@ -5,24 +5,29 @@ models:
     description: Table containing information about the users (got from users source table) 
     columns:
       - name: user_id
+        description: I assume the user_id is the key, so it needs to be unique and not null
         tests:
           - not_null
           - unique
 
       - name: first_name
+        description: I assume each user has a first_name, so it's not null
         tests:
           - not_null
 
       - name: last_name
+        description: I assume each user has a last_name, so it's not null
         tests:
           - not_null
 
       - name: email
+        description: I assume each user has a unique email, and it needs to be not null
         tests:
           - not_null
           - unique
 
       - name: address_id
+        description: I assume each user lives in an address, so it's not null. The address is needs to exist in the stg_addresses model
         tests:
           - not_null
           - relationships:
@@ -33,6 +38,7 @@ models:
     description: Table containing the addresses information (got from addresses source table)
     columns:
       - name: address_id
+        description: The address_id is the key of each address, so it's unique and not null
         tests:
           - not_null
           - unique
@@ -41,15 +47,18 @@ models:
     description: Table containing the events performed by users on the platform (got from events source table)
     columns:
       - name: event_id
+        description: I assume each event has a unique id and needs to be not null
         tests:
           - not_null
           - unique
 
       - name: session_id
+        description: I assume each event is related to a session, so this field needs to be not null. it could be duplicated because multiple events can be related to the same session.
         tests:
           - not_null
 
       - name: user_id
+        description: I assume each event is performed by a user. So it's not null and needs to be found in the stg_users model.
         tests:
           - not_null
           - relationships:
@@ -60,19 +69,21 @@ models:
     description: Table containing orders made by the users (got from orders source table)
     columns:
       - name: order_id
+        description: Each order has a key which is the order_id, so it's not null and unique
         tests:
           - not_null
           - unique
 
       - name: user_id
+        description: I assume each order is made by a user, so the user_id is not null and the user id needs to be found in the stg_users model
         tests:
           - not_null
           - relationships:
               to: ref('stg_users')
               field: user_id
 
-      - name: promo_id
       - name: address_id
+        description: I assume each order needs to be sent to an address, so the address_id is not null and needs to be found in the stg_orders model
         tests:
           - not_null
           - relationships:
@@ -80,6 +91,7 @@ models:
               field: address_id
 
       - name: status
+        description: The status represent the status of each order, and can't be null
         tests:
           - not_null
 
@@ -87,6 +99,7 @@ models:
     description: Relation table that associate products to the orders made (got from the order_items source table)
     columns:
       - name: order_id
+        description: I assume the order_id is not null and found in the stg_orders table
         tests:
           - not_null
           - relationships:
@@ -94,6 +107,7 @@ models:
               field: order_id
 
       - name: product_id
+        description: I assume the product_id is not null and found in the stg_products table
         tests:
           - not_null
           - relationships:
@@ -101,6 +115,7 @@ models:
               field: product_id
 
       - name: quantity
+        description: The quantity represents how much items of a single product are related to an order, so it's not null
         tests:
           - not_null
 
@@ -108,19 +123,23 @@ models:
     description: Table containing the information about the products (got from the products source table)
     columns:
       - name: product_id
+        description: I assume the each product has the product_id as the key, so it's unique and not null
         tests:
           - not_null
           - unique
 
       - name: name
+        description: I assume the each product has a name, so it needs to be not null
         tests:
           - not_null
 
       - name: price
+        description: I assume the each product has a unitary price, so it needs to be not null
         tests:
           - not_null
 
       - name: quantity
+        description: I assume the each product has a stock quantity to be able to understand how many products we have, so it needs to be not null
         tests:
           - not_null
 
@@ -128,11 +147,13 @@ models:
     description: Table containing the information about the promos (got from the promos source table)
     columns:
       - name: promo_id
+        description: I assume the each promo has an id, so it needs to be unique and not null
         tests:
           - not_null
           - unique
 
       - name: status
+        description: I assume the each promo has a status. It can be active or inactive, and can't be null
         tests:
           - not_null
           - accepted_values:

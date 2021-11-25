@@ -23,3 +23,12 @@
 
 3.
     I've created different models in the marts folder. All the explanations are inside each single SQL model.
+
+4.
+    All the tests explanations are in the schema.yml files
+
+    Have you found data that didn't respect assumptions?
+        - Some order and event records had the created_at null, so I relaxed the test on the created_at field.
+
+5.
+    To perform daily tests on data, I'd recommend schedule the dbt run followed by dbt test (or only the dbt build command, to run both at once) every day. That way the models are created/refreshed on a daily base, and also tests are applied. If a test fails, dbt shows the failure. Also, it can be set up an automatic way to store/notify the output of the tests, so in case of failure the responsible is notified.
