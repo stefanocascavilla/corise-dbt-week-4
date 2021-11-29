@@ -2,6 +2,7 @@
 
 with user_orders as (
     select
+        {{ dbt_utils.surrogate_key(['u.user_id', 'o.created_at']) }} as record_key,
         u.user_id,
         u.email,
         o.order_id,

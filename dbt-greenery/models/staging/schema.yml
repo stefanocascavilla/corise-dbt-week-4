@@ -97,6 +97,9 @@ models:
 
   - name: stg_order_items
     description: Relation table that associate products to the orders made (got from the order_items source table)
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: 'quantity > 0'
     columns:
       - name: order_id
         description: I assume the order_id is not null and found in the stg_orders table

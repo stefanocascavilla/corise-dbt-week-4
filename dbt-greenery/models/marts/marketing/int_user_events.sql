@@ -2,6 +2,7 @@
 
 with user_events as (
     select
+        {{ dbt_utils.surrogate_key(['event_id', 'event.created_at']) }} as record_key,
         event.event_id,
         event.created_at,
         event.page_url,
