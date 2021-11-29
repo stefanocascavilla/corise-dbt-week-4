@@ -9,6 +9,7 @@ with user_orders as (
     from {{ ref('stg_users') }} as u
         inner join {{ ref('stg_orders') }} as o
         on u.user_id = o.user_id
+    {{ not_null(field_name='o.created_at') }}
 )
 
 select *

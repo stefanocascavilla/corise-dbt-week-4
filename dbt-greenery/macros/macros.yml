@@ -1,0 +1,16 @@
+version: 2
+
+macros:
+  - name: not_null
+    description: A macro to insert a 'is not null' statement in the where clause
+    arguments:
+      - name: field_name
+        type: string
+        description: The name of the column you want to insert the 'is not null' clause
+
+  - name: truncate_tables
+    description: A macro to truncate all the tables with a given prefix
+    arguments:
+      - name: tables_prefix
+        type: string
+        description: The prefix of the tables to truncate

@@ -9,6 +9,7 @@ with order_products as (
     from {{ ref('stg_orders') }} as o
         inner join {{ ref('stg_order_items') }} as o_item
         on o.order_id = o_item.order_id
+    {{ not_null(field_name='o.created_at') }}
     group by
         o.order_id,
         o.created_at,

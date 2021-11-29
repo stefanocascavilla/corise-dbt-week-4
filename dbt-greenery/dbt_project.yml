@@ -38,3 +38,6 @@ models:
       +materialized: table
     marts:
       +materialized: table
+
+on-run-start:
+  - "{{ truncate_stg_tables('stg_') }}"

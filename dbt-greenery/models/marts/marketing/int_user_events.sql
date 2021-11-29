@@ -10,6 +10,7 @@ with user_events as (
     from {{ ref('stg_events') }} as event
         inner join {{ ref('stg_users') }} as u
         on event.user_id = u.user_id
+    {{ not_null(field_name='event.created_at') }}
 )
 
 select *
