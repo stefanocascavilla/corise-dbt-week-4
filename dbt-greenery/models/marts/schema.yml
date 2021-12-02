@@ -42,6 +42,25 @@ models:
               to: ref('stg_addresses')
               field: address_id
 
+  - name: dim_products_convertion_rate
+    description: Dim table containing the convertion rate for each product
+    columns:
+      - name: product_id
+        description: The id of the product
+        test:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('stg_products')
+              field: product_id
+      
+      - name: product_convertion_rate
+        description: The convertion rate for the given product
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+
   - name: int_user_orders
     description: Intermediate model created to join users along with orders they made
     columns:
