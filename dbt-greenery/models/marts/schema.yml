@@ -45,6 +45,11 @@ models:
   - name: dim_products_convertion_rate
     description: Dim table containing the convertion rate for each product
     columns:
+      - name: name
+        description: The name of the product
+        test:
+          - not_null
+
       - name: product_id
         description: The id of the product
         test:
