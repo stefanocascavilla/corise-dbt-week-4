@@ -1,0 +1,15 @@
+version: 2
+
+exposures:
+  - name: Funnel Dashboard
+    type: dashboard
+    maturity: medium
+    description: >
+      Exposure for the Funnel fact table
+    
+    depends_on:
+      - ref('fact_general_funnel')
+      
+    owner:
+      name: Stefano Cascavilla
+      email: stefano.cascavilla@cloudacademy.com

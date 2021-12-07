@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: int_platform_events
+    description: Table containing the events performed by users on the platform
+    columns:
+      - name: event_id
+        description: I assume each event has a unique id and needs to be not null
+        tests:
+          - not_null
+          - unique
+
+      - name: session_id
+        description: I assume each event is related to a session, so this field needs to be not null. it could be duplicated because multiple events can be related to the same session.
+        tests:
+          - not_null
+
+      - name: user_id
+        description: I assume each event is performed by a user. So it's not null and needs to be found in the stg_users model.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_users')
+              field: user_id
+
+  - name: fact_general_funnel
+    description: Table containing the record representing the product funnel
+    columns:
+      - name: total_sessions
+        description: The total number of unique sessions
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+
+      - name: page_view_sessions
+        description: The percentahe of page view sessions on total sessions
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+
+      - name: add_to_cart_sessions
+        description: The percentahe of add to cart sessions on total sessions
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+
+      - name: checkout_sessions
+        description: The percentahe of checkout sessions on total sessions
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
